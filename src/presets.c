@@ -143,16 +143,6 @@ static preset_t *get_preset(guint offset_num)
 }
 
 
-void presets_use_buffer(guchar *buf)
-{
-	int i;
-
-	for (i = 0; i < PRESETS_NUM; i++) {
-		presets[i].buf = &buf[presets[i].offset];
-	}
-}
-
-
 void presets_sync_buf_from_ui(void)
 {
 	gint i, j, val;
