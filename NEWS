@@ -1,0 +1,10 @@
+Version 0.1
+	- First working version
+		- Can read the settings and alter them
+	- TODO:
+		- File import/export (dissect .mpk3mini file format)
+		- No-GUI operations
+		- Make the GUI prettier
+		- Bulk operations
+		- Maybe: monitor
+		- Fix the "message queue limit reached" messages
