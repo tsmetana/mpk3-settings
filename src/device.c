@@ -243,13 +243,15 @@ guchar *device_dup_buffer(void)
 }
 
 
-void device_set_buffer_byte(const guint offset, const guchar val)
+gboolean device_set_buffer_byte(const guint offset, const guchar val)
 {
 	if (offset > OFF_SYSEX_END) {
 		g_warning("Not setting byte at offset %u", offset);
-		return;
+		return FALSE;
 	}
 	g_mutex_lock(&msg_buf_mutex);
 	msg_buf[offset] = val;
 	g_mutex_unlock(&msg_buf_mutex);
+
+	return TRUE;
 }

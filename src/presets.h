@@ -11,6 +11,7 @@ typedef enum _preset_type_e preset_type_t;
 
 struct _preset_s {
 	guint offset;
+	gsize len;
 	GtkWidget *ui;
 };
 
@@ -27,5 +28,8 @@ GtkWidget *preset_get_ui_element(guint preset_offset);
 
 /* Associate the UI widget with the given preset offset */
 void preset_set_ui_element(guint preset_offset, GtkWidget *widget);
+
+/* Get the number of bytes this preset takes in the message */
+gsize preset_get_length(guint preset_offset);
 
 #endif

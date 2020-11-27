@@ -8,6 +8,7 @@
 #include "message.h"
 #include "presets.h"
 #include "device.h"
+#include "file.h"
 
 #define JOY_UI_HORIZONTAL 0
 #define JOY_UI_VERTICAL   1
@@ -49,22 +50,83 @@ struct _joystick_mode_ui_s {
 
 typedef struct _joystick_mode_ui_s joystick_mode_ui_t;
 
+enum _file_dialog_e {
+	FILE_OPEN_DIALOG,
+	FILE_SAVE_DIALOG
+};
+
+typedef enum _file_dialog_e file_dialog_t;
+
 
 static void on_app_win_delete(GtkWidget *app_win, gpointer user_data)
 {
 	gtk_main_quit();
 }
 
+static gchar *file_choose_dialog(GtkWidget *app_win, file_dialog_t dlg_type)
+{
+	GtkWidget *dialog;
+	GtkFileChooserAction action;
+	const gchar *title;
+	const gchar *btn_label;
+	gchar *filename = NULL;
+
+	if (dlg_type == FILE_OPEN_DIALOG) {
+		action = GTK_FILE_CHOOSER_ACTION_OPEN;
+		title = "Open File";
+		btn_label = "Open";
+	} else {
+		action = GTK_FILE_CHOOSER_ACTION_SAVE;
+		title = "Save File";
+		btn_label = "Save";
+
+	}
+	dialog = gtk_file_chooser_dialog_new(title, GTK_WINDOW(app_win), action,
+			"Cancel", GTK_RESPONSE_CANCEL, btn_label, GTK_RESPONSE_ACCEPT, NULL);
+	if ((gtk_dialog_run(GTK_DIALOG (dialog))) == GTK_RESPONSE_ACCEPT)
+		filename = gtk_file_chooser_get_filename(GTK_FILE_CHOOSER(dialog));
+	gtk_widget_destroy(dialog);
+
+	return filename;
+}
+
 
 static void on_open_menu_item_activate(GtkWidget *menu_item, gpointer user_data)
 {
-	g_warning("Not implemented");
+	gchar *filename = file_choose_dialog(GTK_WIDGET(user_data), FILE_OPEN_DIALOG);
+	GError *err;
+
+	if (filename) {
+		g_debug("Reading %s", filename);
+		if (!file_read(filename, &err)) {
+			g_critical("Read error: %s", err->message);
+			g_error_free(err);
+		} else {
+			/* Sync the UI from the buffer if the data were read OK */
+			presets_sync_ui_from_buf();
+		}
+		g_free(filename);
+	}
 }
 
 
 static void on_save_menu_item_activate(GtkWidget *menu_item, gpointer user_data)
 {
-	g_warning("Not implemented");
+	gchar *filename = file_choose_dialog(GTK_WIDGET(user_data), FILE_SAVE_DIALOG);
+	GError *err;
+
+	if (filename) {
+		presets_sync_buf_from_ui();
+		g_debug("Writing %s", filename);
+		if (g_file_test(filename, G_FILE_TEST_EXISTS)) {
+			/* overwrite? */
+		}
+		if (!file_write(filename, &err)) {
+			g_critical("Write error: %s", err->message);
+			g_error_free(err);
+		}
+		g_free(filename);
+	}
 }
 
 
@@ -111,7 +173,7 @@ static void on_write_pgm_button_click(GtkWidget *button, gpointer user_data)
 }
 
 
-static GtkWidget *file_menu_create(void)
+static GtkWidget *file_menu_create(GtkWidget *main_window)
 {
 	GtkWidget *file_menu_item = gtk_menu_item_new_with_label("File");
 	GtkWidget *file_menu = gtk_menu_new();
@@ -125,8 +187,8 @@ static GtkWidget *file_menu_create(void)
 	gtk_menu_shell_append(GTK_MENU_SHELL(file_menu), gtk_separator_menu_item_new());
 	gtk_menu_shell_append(GTK_MENU_SHELL(file_menu), exit_file_menu_item);
 
-	g_signal_connect((gpointer)open_file_menu_item, "activate", G_CALLBACK(on_open_menu_item_activate), NULL);
-	g_signal_connect((gpointer)save_file_menu_item, "activate", G_CALLBACK(on_save_menu_item_activate), NULL);
+	g_signal_connect((gpointer)open_file_menu_item, "activate", G_CALLBACK(on_open_menu_item_activate), main_window);
+	g_signal_connect((gpointer)save_file_menu_item, "activate", G_CALLBACK(on_save_menu_item_activate), main_window);
 	g_signal_connect((gpointer)exit_file_menu_item, "activate", G_CALLBACK(on_exit_menu_item_activate), NULL);
 	
 	return file_menu_item;
@@ -610,7 +672,7 @@ GtkWidget *app_win_create(void)
 	gtk_box_set_spacing(GTK_BOX(main_vbox), 5);
 	
 	main_menu = gtk_menu_bar_new();
-	gtk_container_add(GTK_CONTAINER(main_menu), file_menu_create());
+	gtk_container_add(GTK_CONTAINER(main_menu), file_menu_create(main_window));
 	gtk_box_pack_start(GTK_BOX(main_vbox), main_menu, FALSE, FALSE, 0);
 	gtk_box_pack_start(GTK_BOX(main_vbox), toolbar_create(), FALSE, FALSE, 0);
 

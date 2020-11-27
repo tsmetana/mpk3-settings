@@ -16,7 +16,9 @@ mpk3_settings_SOURCES = \
 	presets.h\
 	presets.c\
 	device.h\
-	device.c
+	device.c\
+	file.h\
+	file.c
 
 mpk3_settings_LDFLAGS = 
 
