@@ -70,6 +70,8 @@ static gchar *file_choose_dialog(GtkWidget *app_win, file_dialog_t dlg_type)
 	const gchar *title;
 	const gchar *btn_label;
 	gchar *filename = NULL;
+	GtkFileFilter *filter_all = gtk_file_filter_new();
+	GtkFileFilter *filter_mpk = gtk_file_filter_new();
 
 	if (dlg_type == FILE_OPEN_DIALOG) {
 		action = GTK_FILE_CHOOSER_ACTION_OPEN;
@@ -79,10 +81,21 @@ static gchar *file_choose_dialog(GtkWidget *app_win, file_dialog_t dlg_type)
 		action = GTK_FILE_CHOOSER_ACTION_SAVE;
 		title = "Save File";
 		btn_label = "Save";
-
 	}
 	dialog = gtk_file_chooser_dialog_new(title, GTK_WINDOW(app_win), action,
 			"Cancel", GTK_RESPONSE_CANCEL, btn_label, GTK_RESPONSE_ACCEPT, NULL);
+	if (dlg_type == FILE_SAVE_DIALOG)
+		gtk_file_chooser_set_do_overwrite_confirmation(GTK_FILE_CHOOSER(dialog), TRUE);
+	else
+		gtk_file_chooser_set_select_multiple(GTK_FILE_CHOOSER(dialog), FALSE);
+
+	gtk_file_filter_add_pattern(filter_mpk, "*.mpkmini3");
+	gtk_file_filter_set_name(filter_mpk, "mpkmini3 files");
+	gtk_file_filter_add_pattern(filter_all, "*");
+	gtk_file_filter_set_name(filter_all, "All files");
+	gtk_file_chooser_add_filter(GTK_FILE_CHOOSER(dialog), filter_mpk);
+	gtk_file_chooser_add_filter(GTK_FILE_CHOOSER(dialog), filter_all);
+
 	if ((gtk_dialog_run(GTK_DIALOG (dialog))) == GTK_RESPONSE_ACCEPT)
 		filename = gtk_file_chooser_get_filename(GTK_FILE_CHOOSER(dialog));
 	gtk_widget_destroy(dialog);
@@ -118,9 +131,6 @@ static void on_save_menu_item_activate(GtkWidget *menu_item, gpointer user_data)
 	if (filename) {
 		presets_sync_buf_from_ui();
 		g_debug("Writing %s", filename);
-		if (g_file_test(filename, G_FILE_TEST_EXISTS)) {
-			/* overwrite? */
-		}
 		if (!file_write(filename, &err)) {
 			g_critical("Write error: %s", err->message);
 			g_error_free(err);
