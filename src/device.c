@@ -10,8 +10,8 @@
 #define MPK3_DEV_NAME "MPK mini 3"
 #define MPK3_APP_PORT_NAME "MPK3 Settings"
 
-#define MIDI_IN_PTR(_dev) ((RtMidiInPtr)(_dev->in))
-#define MIDI_OUT_PTR(_dev) ((RtMidiOutPtr)(_dev->out))
+#define MIDI_IN_PTR(_dev) ((RtMidiInPtr)(_dev.in))
+#define MIDI_OUT_PTR(_dev) ((RtMidiOutPtr)(_dev.out))
 
 #define SYSEX_MSG_BUF_LEN 1024
 
@@ -26,6 +26,7 @@ typedef struct _device_s device_t;
 static guchar msg_buf[SYSEX_MSG_BUF_LEN] = {0U};
 static GMutex msg_buf_mutex;
 static GCond msg_buf_cond;
+static device_t dev;
 
 static void dump_buffer_data(const guchar *data, const gsize len) {
 	gint i, j;
@@ -66,7 +67,7 @@ static void midi_in_msg_callback(double time_stamp, const unsigned char *message
 }
 
 
-static gint query_program(device_t *dev, const gint pgm_num)
+static gint query_program(const gint pgm_num)
 {
 	RtMidiInPtr midi_out = MIDI_OUT_PTR(dev);
 	RtMidiInPtr midi_in = MIDI_IN_PTR(dev);
@@ -117,9 +118,8 @@ error:
 }
 
 
-static device_t *device_init(void)
+void device_init(void)
 {
-	device_t *dev;
 	guint dev_count;
 	const gchar *dev_name;
 	RtMidiInPtr midi_in = NULL;
@@ -138,11 +138,10 @@ static device_t *device_init(void)
 			break;
 		}
 	}
-	rtmidi_close_port(midi_in);
 	if (!found) {
 		g_critical("No MPKmini MK3 device found");
 		rtmidi_in_free(midi_in);
-		return NULL;
+		return;
 	}
 	g_debug("Using device %d: %s", i, dev_name);
 	midi_out = rtmidi_out_create_default();
@@ -154,53 +153,33 @@ static device_t *device_init(void)
 	if (!(midi_out->ok))
 		g_warning("Error opening input device: %s", midi_out->msg);
 
-	dev = g_malloc(sizeof(device_t *));
-	dev->in = midi_in;
-	dev->out = midi_out;
-	
-	return dev;
+	dev.in = midi_in;
+	dev.out = midi_out;
 }
 
 
-static void device_close(device_t *dev)
+void device_close(void)
 {
 
 	rtmidi_close_port(MIDI_IN_PTR(dev));
 	rtmidi_close_port(MIDI_OUT_PTR(dev));
 	rtmidi_in_free(MIDI_IN_PTR(dev));
 	rtmidi_out_free(MIDI_OUT_PTR(dev));
-	free(dev);
-	dev = NULL;
 }
 
 gint device_read_pgm(gint pgm_num)
 {
-	device_t *dev = device_init();
-	
-	if (!dev) {
-		g_warning("No device to query");
-		return -1;
-	}
-
-	return query_program(dev, pgm_num);
-	device_close(dev);
+	return query_program(pgm_num);
 }
 
 
 gint device_write_pgm(gint pgm_num)
 {
-	device_t *dev = device_init();
 	RtMidiInPtr midi_out;
 	gint ret = -1;
 
-	if (!dev) {
-		g_warning("No device to write to");
-		return ret;
-	}
-
 	if (pgm_num < PGM_NUM_RAM || pgm_num > PGM_NUM_MAX) {
 		g_critical("Invalid program number %d, no write performed", pgm_num);
-		device_close(dev);
 		return ret;
 	}
 	g_mutex_lock(&msg_buf_mutex);
@@ -225,7 +204,6 @@ gint device_write_pgm(gint pgm_num)
 	ret = 0;
 error:
 	g_mutex_unlock(&msg_buf_mutex);
-	device_close(dev);
 
 	return ret;
 }

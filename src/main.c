@@ -26,6 +26,7 @@ int main(int argc, char ** argv)
 	GtkWidget *app_win;
 	
 	gtk_init(&argc, &argv);
+	device_init();
 	if (device_read_pgm(PGM_NUM_RAM) < 0) {
 		show_error();
 		return -1;
@@ -33,6 +34,7 @@ int main(int argc, char ** argv)
 	app_win = app_win_create();
 	gtk_widget_show_all(app_win);
 	gtk_main();
+	device_close();
 
 	return 0;
 }
