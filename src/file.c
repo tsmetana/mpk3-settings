@@ -60,12 +60,12 @@ gboolean file_read(const gchar *filename, GError **err)
 	fr = g_open(filename, O_CLOEXEC, 0);
 	if (fr < 0) {
 		errno_save = errno;
-		*err = g_error_new(G_FILE_ERROR, errno_save, "%s: Error opening file: %s", filename, sys_errlist[errno_save]);
+		*err = g_error_new(G_FILE_ERROR, errno_save, "%s: Error opening file: %s", filename, strerror(errno_save));
 		return FALSE;
 	}
 	if ((data_len = read(fr, (void *)file_buf, FILE_SIZE)) < 0) {
 		errno_save = errno;
-		*err = g_error_new(G_FILE_ERROR, errno_save, "%s: Error reading file: %s", filename, sys_errlist[errno_save]);
+		*err = g_error_new(G_FILE_ERROR, errno_save, "%s: Error reading file: %s", filename, strerror(errno_save));
 		return FALSE;
 	}
 	if (!g_close(fr, &orig_err)) {
@@ -164,13 +164,13 @@ gboolean file_write(const gchar *filename, GError **err)
 	fw = g_open(filename, O_CLOEXEC | O_CREAT | O_TRUNC | O_WRONLY, S_IRUSR | S_IWUSR | S_IRGRP | S_IWGRP | S_IROTH | S_IWOTH);
 	if (fw < 0) {
 		errno_save = errno;
-		*err = g_error_new(G_FILE_ERROR, errno_save, "%s: Error opening file: %s", filename, sys_errlist[errno_save]);
+		*err = g_error_new(G_FILE_ERROR, errno_save, "%s: Error opening file: %s", filename, strerror(errno_save));
 		return ret;
 	}
 	data_len = write(fw, (const void*)file_buf, FILE_SIZE);
 	if (data_len < 0) {
 		errno_save = errno;
-		*err = g_error_new(G_FILE_ERROR, errno_save, "%s: Error writing file: %s", filename, sys_errlist[errno_save]);
+		*err = g_error_new(G_FILE_ERROR, errno_save, "%s: Error writing file: %s", filename, strerror(errno_save));
 		goto error;
 	}
 	if (data_len != FILE_SIZE) {
