@@ -121,7 +121,8 @@ error:
 void device_init(void)
 {
 	guint dev_count;
-	const gchar *dev_name;
+	gint name_len = 64;
+	gchar dev_name[64];
 	RtMidiInPtr midi_in = NULL;
 	RtMidiInPtr midi_out = NULL;
 	guint i, port_num = 0;
@@ -131,7 +132,7 @@ void device_init(void)
 	dev_count = rtmidi_get_port_count(midi_in);
 	g_debug("Found %d MIDI devices", dev_count);
 	for (i = 0; i < dev_count; i++) {
-		dev_name = rtmidi_get_port_name(midi_in, i);
+		rtmidi_get_port_name(midi_in, i, dev_name, &name_len);
 		if ((strncmp(dev_name, MPK3_DEV_NAME, strlen(MPK3_DEV_NAME)) == 0)) {
 			port_num = i;
 			found = true;
