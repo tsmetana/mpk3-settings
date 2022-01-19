@@ -11,7 +11,7 @@ AC_PROG_CC
 AC_HEADER_STDC
 
 PKG_CHECK_MODULES(GTK, gtk+-3.0,,)
-PKG_CHECK_MODULES(RTMIDI, rtmidi >= 4.0.0,,)
+PKG_CHECK_MODULES(RTMIDI, rtmidi >= 5.0.0,,)
 
 AC_SUBST([BUILD_DATE], $(LC_ALL=C date +"%a %b %d %Y"))
 
