@@ -1,10 +1,9 @@
 dnl Process this file with autoconf to produce a configure script.
 AC_INIT(mpk3-settings,0.1,,)
-AM_INIT_AUTOMAKE([foreign])
 AC_PREREQ(2.69)
 AC_CONFIG_HEADERS(config.h)
 AC_GNU_SOURCE
-AM_INIT_AUTOMAKE
+AM_INIT_AUTOMAKE([subdir-objects])
 CFLAGS=""
 AC_SUBST(CFLAGS)
 AC_PROG_CC
