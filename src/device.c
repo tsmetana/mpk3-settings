@@ -118,11 +118,16 @@ error:
 }
 
 
+#define DEV_NAME_MAX_LEN 64
 void device_init(void)
 {
 	guint dev_count;
-	gint name_len = 64;
-	gchar dev_name[64];
+#ifdef HAVE_RTMIDI4
+	const gchar *dev_name;
+#else
+	gint name_len = DEV_NAME_MAX_LEN;
+	gchar dev_name[DEV_NAME_MAX_LEN];
+#endif
 	RtMidiInPtr midi_in = NULL;
 	RtMidiInPtr midi_out = NULL;
 	guint i, port_num = 0;
@@ -132,7 +137,11 @@ void device_init(void)
 	dev_count = rtmidi_get_port_count(midi_in);
 	g_debug("Found %d MIDI devices", dev_count);
 	for (i = 0; i < dev_count; i++) {
+#ifdef HAVE_RTMIDI4
+		dev_name = rtmidi_get_port_name(midi_in, i);
+#else
 		rtmidi_get_port_name(midi_in, i, dev_name, &name_len);
+#endif
 		if ((strncmp(dev_name, MPK3_DEV_NAME, strlen(MPK3_DEV_NAME)) == 0)) {
 			port_num = i;
 			found = true;
