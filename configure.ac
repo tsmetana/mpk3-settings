@@ -1,4 +1,4 @@
-dnl Process this file with autoconf to produce a configure script.
+dnl Process this file with auto(re)conf to produce a configure script.
 AC_INIT([mpk3-settings],[0.1],[],[])
 AM_INIT_AUTOMAKE([foreign])
 AC_PREREQ([2.69])
