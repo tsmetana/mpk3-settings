@@ -1,5 +1,5 @@
 dnl Process this file with auto(re)conf to produce a configure script.
-AC_INIT([mpk3-settings],[0.1],[https://github.com/tsmetana/mpk3-settings/issues],[])
+AC_INIT([mpk3-settings],[0.1],[https://github.com/tsmetana/mpk3-settings/issues])
 AM_INIT_AUTOMAKE([foreign])
 AC_PREREQ([2.69])
 AC_CONFIG_HEADERS([config.h])
@@ -18,7 +18,7 @@ PKG_CHECK_MODULES([RTMIDI5], [rtmidi >= 5.0.0], [dnl
 			AC_DEFINE([HAVE_RTMIDI4], [1], [Use RTMIDI version 4])
 			AC_SUBST([RTMIDI_CFLAGS], [$RTMIDI4_CFLAGS])
 			AC_SUBST([RTMIDI_LIBS],   [$RTMIDI4_LIBS])
-		], [])
+		])
 	]
 )
 
