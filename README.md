@@ -9,7 +9,7 @@ Use at your own risk.
 
 ### Installation
 ```
-$ ./autogen.sh
+$ autoreconf -i
 $ ./configure
 $ make
 ```
