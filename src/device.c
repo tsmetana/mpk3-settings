@@ -31,6 +31,8 @@ static device_t dev;
 static void dump_buffer_data(const guchar *data, const gsize len) {
 	gint i, j;
 
+	if (!g_log_get_debug_enabled())
+		return;
 	g_debug("Message buffer dump:");
 	j = 1;
 	for (i = 0; i < len; i++, j++) {
