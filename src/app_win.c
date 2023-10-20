@@ -225,6 +225,7 @@ static GtkWidget *toolbar_create(void)
 		pgm_id[0] = pgm_label[strlen(pgm_label) - 1] = '0' + i;
 		gtk_combo_box_text_append(GTK_COMBO_BOX_TEXT(pgm_selector), pgm_id, pgm_label);
 	}
+	gtk_entry_set_max_length(GTK_ENTRY(pgm_name_entry), NAME_STR_LEN);
 	gtk_combo_box_set_active_id(GTK_COMBO_BOX(pgm_selector), "0");
 	gtk_box_pack_start(GTK_BOX(toolbar_vbox), pgm_selector, FALSE, FALSE, 0);
 	gtk_box_pack_start(GTK_BOX(toolbar_vbox), read_pgm_button, FALSE, FALSE, 0);
@@ -451,6 +452,7 @@ static GtkWidget *single_knob_ui_create(gint knob_num)
 	GtkWidget *lo_entry = gtk_spin_button_new_with_range(0.0, 127.0, 1.0); /* FIXME: magic numbers */
 	GtkWidget *mode_combo = gtk_combo_box_text_new();
 
+	gtk_entry_set_max_length(GTK_ENTRY(knob_label_entry), NAME_STR_LEN);
 	knob_name = g_strdup_printf("K%d", knob_num + 1);
 	g_debug("Setting knob %s, offset %d", knob_name, base_offset);
 	frame = gtk_frame_new(knob_name);
