@@ -562,6 +562,8 @@ static GtkWidget *arpeggiator_ui_create(void)
 	GtkWidget *grid = gtk_grid_new();
 	GtkWidget *arp_switch_label = gtk_label_new("On / Off");
 	GtkWidget *arp_switch = gtk_switch_new();
+	gtk_widget_set_halign(arp_switch, GTK_ALIGN_START);
+	gtk_widget_set_valign(arp_switch, GTK_ALIGN_CENTER);
 	GtkWidget *tempo_taps_label = gtk_label_new("Tempo taps");
 	GtkWidget *tempo_label = gtk_label_new("Tempo");
 	GtkWidget *time_div_label = gtk_label_new("Time div");
