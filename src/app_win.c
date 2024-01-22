@@ -327,16 +327,16 @@ static GtkWidget *joystick_ui_create(void)
 
 	gtk_grid_attach(GTK_GRID(grid), h_mode_combo, 0, 0, 4, 1);
 	gtk_grid_attach(GTK_GRID(grid), h_neg_icon,   0, 1, 1, 1);
-	gtk_grid_attach(GTK_GRID(grid), h_label,      1, 1, 1, 1);
-	gtk_grid_attach(GTK_GRID(grid), h_neg_entry,  2, 1, 2, 1);
+	gtk_grid_attach(GTK_GRID(grid), h_label,      0, 1, 1, 1);
+	gtk_grid_attach(GTK_GRID(grid), h_neg_entry,  1, 1, 2, 1);
 	gtk_grid_attach(GTK_GRID(grid), h_pos_icon,   0, 2, 1, 1);
-	gtk_grid_attach(GTK_GRID(grid), h_pos_entry,  2, 2, 2, 1);
+	gtk_grid_attach(GTK_GRID(grid), h_pos_entry,  1, 2, 2, 1);
 	gtk_grid_attach(GTK_GRID(grid), v_mode_combo, 0, 3, 4, 1);
 	gtk_grid_attach(GTK_GRID(grid), v_pos_icon,   0, 4, 1, 1);
-	gtk_grid_attach(GTK_GRID(grid), v_label,      1, 5, 1, 1);
-	gtk_grid_attach(GTK_GRID(grid), v_pos_entry,  2, 4, 2, 1);
+	gtk_grid_attach(GTK_GRID(grid), v_label,      0, 5, 1, 1);
+	gtk_grid_attach(GTK_GRID(grid), v_pos_entry,  1, 4, 2, 1);
 	gtk_grid_attach(GTK_GRID(grid), v_neg_icon,   0, 5, 1, 1);
-	gtk_grid_attach(GTK_GRID(grid), v_neg_entry,  2, 5, 2, 1);
+	gtk_grid_attach(GTK_GRID(grid), v_neg_entry,  1, 5, 2, 1);
 
 	gtk_combo_box_text_append(GTK_COMBO_BOX_TEXT(h_mode_combo), "0", "Pitchbend");
 	gtk_combo_box_text_append(GTK_COMBO_BOX_TEXT(h_mode_combo), "1", "Single CC");
