@@ -26,7 +26,10 @@ int main(int argc, char ** argv)
 	GtkWidget *app_win;
 	
 	gtk_init(&argc, &argv);
-	device_init();
+	if (device_init() < 0) {
+		show_error();
+		return -1;
+	}
 	if (device_read_pgm(PGM_NUM_RAM) < 0) {
 		show_error();
 		return -1;
