@@ -209,8 +209,8 @@ static GtkWidget *toolbar_create(void)
 {
 	GtkWidget *toolbar_vbox = gtk_box_new(GTK_ORIENTATION_HORIZONTAL, 0);
 	GtkWidget *pgm_selector = gtk_combo_box_text_new();
-	GtkWidget *read_pgm_button = gtk_button_new_from_icon_name("document-open", GTK_ICON_SIZE_BUTTON);
-	GtkWidget *write_pgm_button = gtk_button_new_from_icon_name("document-save", GTK_ICON_SIZE_BUTTON);
+	GtkWidget *read_pgm_button = gtk_button_new_from_icon_name("folder-download-symbolic", GTK_ICON_SIZE_BUTTON);
+	GtkWidget *write_pgm_button = gtk_button_new_from_icon_name("send-to-symbolic", GTK_ICON_SIZE_BUTTON);
 	GtkWidget *pgm_name_label = gtk_label_new("Program name:");
 	GtkWidget *pgm_name_entry = gtk_entry_new();
 	gchar pgm_label[] = "Program #";
