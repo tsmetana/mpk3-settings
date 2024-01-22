@@ -292,10 +292,10 @@ static GtkWidget *joystick_ui_create(void)
 	GtkWidget *grid = gtk_grid_new();
 	GtkWidget *h_mode_combo = gtk_combo_box_text_new();
 	GtkWidget *h_pos_entry = gtk_spin_button_new_with_range(CHANNEL_MIN, CHANNEL_MAX, 1.0);
-	GtkWidget *h_pos_icon = gtk_image_new_from_icon_name("go-right", GTK_ICON_SIZE_MENU);
+	GtkWidget *h_pos_icon = gtk_image_new_from_icon_name("go-next", GTK_ICON_SIZE_MENU);
 	GtkWidget *h_label = gtk_label_new("CC");
 	GtkWidget *h_neg_entry = gtk_spin_button_new_with_range(CHANNEL_MIN, CHANNEL_MAX, 1.0);
-	GtkWidget *h_neg_icon = gtk_image_new_from_icon_name("go-left", GTK_ICON_SIZE_MENU);
+	GtkWidget *h_neg_icon = gtk_image_new_from_icon_name("go-previous", GTK_ICON_SIZE_MENU);
 	GtkWidget *v_mode_combo = gtk_combo_box_text_new();
 	GtkWidget *v_pos_entry = gtk_spin_button_new_with_range(CHANNEL_MIN, CHANNEL_MAX, 1.0);
 	GtkWidget *v_pos_icon = gtk_image_new_from_icon_name("go-up", GTK_ICON_SIZE_MENU);
