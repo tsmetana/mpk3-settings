@@ -269,8 +269,8 @@ static void on_joystick_mode_combo_changed(GtkWidget *combo, gpointer user_data)
 			gtk_widget_hide(ui->pos_icon);
 			gtk_widget_hide(ui->neg_icon);
 			gtk_widget_show(ui->cc_label);
-			gtk_widget_show(ui->pos_entry);
-			gtk_widget_hide(ui->neg_entry);
+			gtk_widget_show(ui->neg_entry);
+			gtk_widget_hide(ui->pos_entry);
 			break;
 		case 2:
 			gtk_widget_show(ui->pos_icon);
@@ -326,14 +326,14 @@ static GtkWidget *joystick_ui_create(void)
 	g_signal_connect((gpointer)v_mode_combo, "changed", G_CALLBACK(on_joystick_mode_combo_changed), ui[JOY_UI_VERTICAL]);
 
 	gtk_grid_attach(GTK_GRID(grid), h_mode_combo, 0, 0, 4, 1);
-	gtk_grid_attach(GTK_GRID(grid), h_pos_icon,   0, 1, 1, 1);
+	gtk_grid_attach(GTK_GRID(grid), h_neg_icon,   0, 1, 1, 1);
 	gtk_grid_attach(GTK_GRID(grid), h_label,      1, 1, 1, 1);
-	gtk_grid_attach(GTK_GRID(grid), h_pos_entry,  2, 1, 2, 1);
-	gtk_grid_attach(GTK_GRID(grid), h_neg_icon,   0, 2, 1, 1);
-	gtk_grid_attach(GTK_GRID(grid), h_neg_entry,  2, 2, 2, 1);
+	gtk_grid_attach(GTK_GRID(grid), h_neg_entry,  2, 1, 2, 1);
+	gtk_grid_attach(GTK_GRID(grid), h_pos_icon,   0, 2, 1, 1);
+	gtk_grid_attach(GTK_GRID(grid), h_pos_entry,  2, 2, 2, 1);
 	gtk_grid_attach(GTK_GRID(grid), v_mode_combo, 0, 3, 4, 1);
 	gtk_grid_attach(GTK_GRID(grid), v_pos_icon,   0, 4, 1, 1);
-	gtk_grid_attach(GTK_GRID(grid), v_label,      1, 4, 1, 1);
+	gtk_grid_attach(GTK_GRID(grid), v_label,      1, 5, 1, 1);
 	gtk_grid_attach(GTK_GRID(grid), v_pos_entry,  2, 4, 2, 1);
 	gtk_grid_attach(GTK_GRID(grid), v_neg_icon,   0, 5, 1, 1);
 	gtk_grid_attach(GTK_GRID(grid), v_neg_entry,  2, 5, 2, 1);
