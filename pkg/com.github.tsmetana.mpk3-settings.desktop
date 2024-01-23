@@ -1,0 +1,9 @@
+[Desktop Entry]
+Type=Application
+Version=1.0
+Name=MPK3 Settings
+Comment=AKAI MPK Mini MK3 settings
+Exec=mpk3-settings
+Icon=com.github.tsmetana.mpk3-settings
+Terminal=false
+Categories=Settings;
