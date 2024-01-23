@@ -58,11 +58,6 @@ enum _file_dialog_e {
 typedef enum _file_dialog_e file_dialog_t;
 
 
-static void on_app_win_delete(GtkWidget *app_win, gpointer user_data)
-{
-	gtk_main_quit();
-}
-
 static gchar *file_choose_dialog(GtkWidget *app_win, file_dialog_t dlg_type)
 {
 	GtkWidget *dialog;
@@ -671,16 +666,15 @@ static void on_app_win_realize(GtkWidget *win, gpointer user_data)
 }
 
 
-GtkWidget *app_win_create(void)
+GtkWidget *app_win_create(GtkApplication *app)
 {
 	GtkWidget *main_window;
 	GtkWidget *main_vbox;
 	GtkWidget *main_menu;
 	GtkWidget *main_hbox;
 
-	main_window = gtk_window_new(GTK_WINDOW_TOPLEVEL);
+	main_window = gtk_application_window_new(app);
 	gtk_window_set_title(GTK_WINDOW(main_window), "MPKmini MK3 Settings");
-	g_signal_connect(main_window, "delete-event", G_CALLBACK(on_app_win_delete), NULL);
 
 	main_vbox = gtk_box_new(GTK_ORIENTATION_VERTICAL, 0);
 	gtk_box_set_spacing(GTK_BOX(main_vbox), 5);
