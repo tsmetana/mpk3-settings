@@ -121,7 +121,7 @@ error:
 
 
 #define DEV_NAME_MAX_LEN 64
-void device_init(void)
+int device_init(void)
 {
 	guint dev_count;
 #ifdef HAVE_RTMIDI4
@@ -153,7 +153,7 @@ void device_init(void)
 	if (!found) {
 		g_critical("No MPKmini MK3 device found");
 		rtmidi_in_free(midi_in);
-		return;
+		return -1;
 	}
 	g_debug("Using device %d: %s", i, dev_name);
 	midi_out = rtmidi_out_create_default();
@@ -167,6 +167,8 @@ void device_init(void)
 
 	dev.in = midi_in;
 	dev.out = midi_out;
+
+	return 0;
 }
 
 

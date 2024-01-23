@@ -27,11 +27,11 @@
 #define OFF_TEMPO_BPM             35 /* Two 7 bit values for BPM (60 - 240) */
 #define OFF_ARP_OCTAVE            37 /* Arpeggiatior octave setting */
 #define OFF_JOY_HORIZ_MODE        38 /* Joystick horizontal mode: 0x0 pitchbend, 0x1 single, 0x2 dual */
-#define OFF_JOY_HORIZ_POSITIVE_CH 39 /* Joystick horizontal positive channel */
-#define OFF_JOY_HORIZ_NEGATIVE_CH 40 /* Joystick horizontal positive channel */
+#define OFF_JOY_HORIZ_NEGATIVE_CH 39 /* Joystick horizontal negative channel */
+#define OFF_JOY_HORIZ_POSITIVE_CH 40 /* Joystick horizontal positive channel */
 #define OFF_JOY_VERT_MODE         41 /* Joystick vertical mode: 0x0 pitchbend, 0x1 single, 0x2 dual */
-#define OFF_JOY_VERT_POSITIVE_CH  42 /* Joystick vertical positive channel */
-#define OFF_JOY_VERT_NEGATIVE_CH  43 /* Joystick vertical positive channel */
+#define OFF_JOY_VERT_NEGATIVE_CH  42 /* Joystick vertical negative channel */
+#define OFF_JOY_VERT_POSITIVE_CH  43 /* Joystick vertical positive channel */
 #define OFF_PAD_1_NOTE            44 /* Pad 1 note */
 #define OFF_PAD_1_PC              45 /* Pad 1 PC */
 #define OFF_PAD_1_CC              46 /* Pad 1 CC */

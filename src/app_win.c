@@ -209,8 +209,8 @@ static GtkWidget *toolbar_create(void)
 {
 	GtkWidget *toolbar_vbox = gtk_box_new(GTK_ORIENTATION_HORIZONTAL, 0);
 	GtkWidget *pgm_selector = gtk_combo_box_text_new();
-	GtkWidget *read_pgm_button = gtk_button_new_from_icon_name("document-open", GTK_ICON_SIZE_BUTTON);
-	GtkWidget *write_pgm_button = gtk_button_new_from_icon_name("document-save", GTK_ICON_SIZE_BUTTON);
+	GtkWidget *read_pgm_button = gtk_button_new_from_icon_name("folder-download-symbolic", GTK_ICON_SIZE_BUTTON);
+	GtkWidget *write_pgm_button = gtk_button_new_from_icon_name("send-to-symbolic", GTK_ICON_SIZE_BUTTON);
 	GtkWidget *pgm_name_label = gtk_label_new("Program name:");
 	GtkWidget *pgm_name_entry = gtk_entry_new();
 	gchar pgm_label[] = "Program #";
@@ -269,8 +269,8 @@ static void on_joystick_mode_combo_changed(GtkWidget *combo, gpointer user_data)
 			gtk_widget_hide(ui->pos_icon);
 			gtk_widget_hide(ui->neg_icon);
 			gtk_widget_show(ui->cc_label);
-			gtk_widget_show(ui->pos_entry);
-			gtk_widget_hide(ui->neg_entry);
+			gtk_widget_show(ui->neg_entry);
+			gtk_widget_hide(ui->pos_entry);
 			break;
 		case 2:
 			gtk_widget_show(ui->pos_icon);
@@ -292,10 +292,10 @@ static GtkWidget *joystick_ui_create(void)
 	GtkWidget *grid = gtk_grid_new();
 	GtkWidget *h_mode_combo = gtk_combo_box_text_new();
 	GtkWidget *h_pos_entry = gtk_spin_button_new_with_range(CHANNEL_MIN, CHANNEL_MAX, 1.0);
-	GtkWidget *h_pos_icon = gtk_image_new_from_icon_name("go-right", GTK_ICON_SIZE_MENU);
+	GtkWidget *h_pos_icon = gtk_image_new_from_icon_name("go-next", GTK_ICON_SIZE_MENU);
 	GtkWidget *h_label = gtk_label_new("CC");
 	GtkWidget *h_neg_entry = gtk_spin_button_new_with_range(CHANNEL_MIN, CHANNEL_MAX, 1.0);
-	GtkWidget *h_neg_icon = gtk_image_new_from_icon_name("go-left", GTK_ICON_SIZE_MENU);
+	GtkWidget *h_neg_icon = gtk_image_new_from_icon_name("go-previous", GTK_ICON_SIZE_MENU);
 	GtkWidget *v_mode_combo = gtk_combo_box_text_new();
 	GtkWidget *v_pos_entry = gtk_spin_button_new_with_range(CHANNEL_MIN, CHANNEL_MAX, 1.0);
 	GtkWidget *v_pos_icon = gtk_image_new_from_icon_name("go-up", GTK_ICON_SIZE_MENU);
@@ -326,17 +326,17 @@ static GtkWidget *joystick_ui_create(void)
 	g_signal_connect((gpointer)v_mode_combo, "changed", G_CALLBACK(on_joystick_mode_combo_changed), ui[JOY_UI_VERTICAL]);
 
 	gtk_grid_attach(GTK_GRID(grid), h_mode_combo, 0, 0, 4, 1);
-	gtk_grid_attach(GTK_GRID(grid), h_pos_icon,   0, 1, 1, 1);
-	gtk_grid_attach(GTK_GRID(grid), h_label,      1, 1, 1, 1);
-	gtk_grid_attach(GTK_GRID(grid), h_pos_entry,  2, 1, 2, 1);
-	gtk_grid_attach(GTK_GRID(grid), h_neg_icon,   0, 2, 1, 1);
-	gtk_grid_attach(GTK_GRID(grid), h_neg_entry,  2, 2, 2, 1);
+	gtk_grid_attach(GTK_GRID(grid), h_neg_icon,   0, 1, 1, 1);
+	gtk_grid_attach(GTK_GRID(grid), h_label,      0, 1, 1, 1);
+	gtk_grid_attach(GTK_GRID(grid), h_neg_entry,  1, 1, 2, 1);
+	gtk_grid_attach(GTK_GRID(grid), h_pos_icon,   0, 2, 1, 1);
+	gtk_grid_attach(GTK_GRID(grid), h_pos_entry,  1, 2, 2, 1);
 	gtk_grid_attach(GTK_GRID(grid), v_mode_combo, 0, 3, 4, 1);
 	gtk_grid_attach(GTK_GRID(grid), v_pos_icon,   0, 4, 1, 1);
-	gtk_grid_attach(GTK_GRID(grid), v_label,      1, 4, 1, 1);
-	gtk_grid_attach(GTK_GRID(grid), v_pos_entry,  2, 4, 2, 1);
+	gtk_grid_attach(GTK_GRID(grid), v_label,      0, 5, 1, 1);
+	gtk_grid_attach(GTK_GRID(grid), v_pos_entry,  1, 4, 2, 1);
 	gtk_grid_attach(GTK_GRID(grid), v_neg_icon,   0, 5, 1, 1);
-	gtk_grid_attach(GTK_GRID(grid), v_neg_entry,  2, 5, 2, 1);
+	gtk_grid_attach(GTK_GRID(grid), v_neg_entry,  1, 5, 2, 1);
 
 	gtk_combo_box_text_append(GTK_COMBO_BOX_TEXT(h_mode_combo), "0", "Pitchbend");
 	gtk_combo_box_text_append(GTK_COMBO_BOX_TEXT(h_mode_combo), "1", "Single CC");
@@ -562,6 +562,8 @@ static GtkWidget *arpeggiator_ui_create(void)
 	GtkWidget *grid = gtk_grid_new();
 	GtkWidget *arp_switch_label = gtk_label_new("On / Off");
 	GtkWidget *arp_switch = gtk_switch_new();
+	gtk_widget_set_halign(arp_switch, GTK_ALIGN_START);
+	gtk_widget_set_valign(arp_switch, GTK_ALIGN_CENTER);
 	GtkWidget *tempo_taps_label = gtk_label_new("Tempo taps");
 	GtkWidget *tempo_label = gtk_label_new("Tempo");
 	GtkWidget *time_div_label = gtk_label_new("Time div");
