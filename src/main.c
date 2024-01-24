@@ -17,14 +17,26 @@ void show_error(void)
 			GTK_BUTTONS_CLOSE,
 			"Error: No suitable device found.");
 	gtk_window_set_title(GTK_WINDOW(dialog), "MPKmini MK3 Settings");
-	gtk_dialog_run(GTK_DIALOG (dialog));
+	gtk_dialog_run(GTK_DIALOG(dialog));
 	gtk_widget_destroy(dialog);
 }
 
+static void
+activate(GtkApplication *app, gpointer user_data)
+{
+	GtkWidget *window;
+
+	window = app_win_create(app);
+	gtk_widget_show_all(window);
+	gtk_window_present(GTK_WINDOW(window));
+}
+
+
 int main(int argc, char ** argv)
 {
-	GtkWidget *app_win;
-	
+	GtkApplication *app;
+	int status;
+
 	gtk_init(&argc, &argv);
 	if (device_init() < 0) {
 		show_error();
@@ -34,10 +46,11 @@ int main(int argc, char ** argv)
 		show_error();
 		return -1;
 	}
-	app_win = app_win_create();
-	gtk_widget_show_all(app_win);
-	gtk_main();
+	app = gtk_application_new("com.github.tsmetana.mpk3-settings", G_APPLICATION_DEFAULT_FLAGS);
+	g_signal_connect(app, "activate", G_CALLBACK(activate), NULL);
+	status = g_application_run(G_APPLICATION(app), argc, argv);
+	g_object_unref(app);
 	device_close();
 
-	return 0;
+	return status;
 }
