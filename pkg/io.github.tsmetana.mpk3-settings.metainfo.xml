@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <component type="desktop-application">
-    <id>com.github.tsmetana.mpk3-settings</id>
-    <launchable type="desktop-id">com.github.tsmetana.mpk3-settings</launchable>
+    <id>io.github.tsmetana.mpk3-settings</id>
+    <launchable type="desktop-id">io.github.tsmetana.mpk3-settings</launchable>
     <name>MPK3 Settings</name>
     <summary>AKAI MPK Mini MK3 settings</summary>
     <description>
