@@ -60,7 +60,7 @@ typedef enum _file_dialog_e file_dialog_t;
 
 static gchar *file_choose_dialog(GtkWidget *app_win, file_dialog_t dlg_type)
 {
-	GtkWidget *dialog;
+	GtkFileChooserNative *dialog;
 	GtkFileChooserAction action;
 	const gchar *title;
 	const gchar *btn_label;
@@ -77,8 +77,8 @@ static gchar *file_choose_dialog(GtkWidget *app_win, file_dialog_t dlg_type)
 		title = "Save File";
 		btn_label = "Save";
 	}
-	dialog = gtk_file_chooser_dialog_new(title, GTK_WINDOW(app_win), action,
-			"Cancel", GTK_RESPONSE_CANCEL, btn_label, GTK_RESPONSE_ACCEPT, NULL);
+	dialog = gtk_file_chooser_native_new(title, GTK_WINDOW(app_win), action,
+			btn_label, "Cancel");
 	if (dlg_type == FILE_SAVE_DIALOG)
 		gtk_file_chooser_set_do_overwrite_confirmation(GTK_FILE_CHOOSER(dialog), TRUE);
 	else
@@ -91,9 +91,9 @@ static gchar *file_choose_dialog(GtkWidget *app_win, file_dialog_t dlg_type)
 	gtk_file_chooser_add_filter(GTK_FILE_CHOOSER(dialog), filter_mpk);
 	gtk_file_chooser_add_filter(GTK_FILE_CHOOSER(dialog), filter_all);
 
-	if ((gtk_dialog_run(GTK_DIALOG (dialog))) == GTK_RESPONSE_ACCEPT)
+	if ((gtk_native_dialog_run(GTK_NATIVE_DIALOG(dialog))) == GTK_RESPONSE_ACCEPT)
 		filename = gtk_file_chooser_get_filename(GTK_FILE_CHOOSER(dialog));
-	gtk_widget_destroy(dialog);
+	g_object_unref(dialog);
 
 	return filename;
 }
