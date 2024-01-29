@@ -28,5 +28,21 @@
         </screenshot>
     </screenshots>
     <releases>
+        <release version="0.1.1" date="2024-01-29">
+            <description>
+                <ul>
+                    <li>Install icon, desktop file, metadata from makefile</li>
+                    <li>Use GtkFileChooserNative for better flatpak integration</li>
+                    <li>Use io.github.tsmetana.mpk3-settings as app id</li>
+                </ul>
+            </description>
+        </release>
+        <release version="0.1.0" date="2024-01-25">
+            <description>
+                <ul>
+                    <li>Initial release</li>
+                </ul>
+            </description>
+        </release>
     </releases>
 </component>
