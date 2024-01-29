@@ -1,3 +1,12 @@
+desktopdir = $(datadir)/applications
+desktop_DATA = pkg/io.github.tsmetana.mpk3-settings.desktop
+
+metainfodir = $(datadir)/metainfo
+metainfo_DATA = pkg/io.github.tsmetana.mpk3-settings.metainfo.xml
+
+iconsdir = $(datadir)/icons/hicolor/scalable/apps
+icons_DATA = pkg/io.github.tsmetana.mpk3-settings.svg
+
 SUBDIRS = src
 
 #docdir = ${prefix}/doc/exp
