@@ -19,7 +19,10 @@ SUBDIRS = src
 #	NEWS\
 #	TODO
 
-#EXTRA_DIST = $(doc_DATA)
+EXTRA_DIST = \
+	$(desktop_DATA) \
+	$(metainfo_DATA) \
+	$(icons_DATA)
 
 # Copy all the spec files. Of cource, only one is actually used.
 dist-hook:
