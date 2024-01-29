@@ -9,17 +9,9 @@ icons_DATA = pkg/io.github.tsmetana.mpk3-settings.svg
 
 SUBDIRS = src
 
-#docdir = ${prefix}/doc/exp
-#doc_DATA = \
-#	README\
-#	COPYING\
-#	AUTHORS\
-#	ChangeLog\
-#	INSTALL\
-#	NEWS\
-#	TODO
-
 EXTRA_DIST = \
+	README.md \
+	LICENSE \
 	$(desktop_DATA) \
 	$(metainfo_DATA) \
 	$(icons_DATA)
@@ -31,3 +23,15 @@ dist-hook:
 			cp -p $$specfile $(distdir); \
 		fi \
 	done
+
+RPMDIR = ${PWD}
+RPMRESULTDIR = rpmbuild
+srpm: dist-bzip2
+	rpmbuild \
+		--clean \
+		--define "_sourcedir $(RPMDIR)" \
+		--define "_specdir $(RPMDIR)" \
+		--define "_builddir $(RPMDIR)" \
+		--define "_srcrpmdir $(RPMDIR)" \
+		--define "_rpmdir $(RPMDIR)/$(RPMRESULTDIR)" \
+		-bs $(PACKAGE).spec

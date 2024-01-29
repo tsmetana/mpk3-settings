@@ -1,5 +1,5 @@
 dnl Process this file with auto(re)conf to produce a configure script.
-AC_INIT([mpk3-settings],[0.1],[https://github.com/tsmetana/mpk3-settings/issues])
+AC_INIT([mpk3-settings],[0.1.2],[https://github.com/tsmetana/mpk3-settings/issues])
 AM_INIT_AUTOMAKE([foreign])
 AC_PREREQ([2.69])
 AC_CONFIG_HEADERS([config.h])
@@ -27,5 +27,6 @@ AC_SUBST([BUILD_DATE], [$(LC_ALL=C date +"%a %b %d %Y")])
 AC_CONFIG_FILES([
 Makefile
 src/Makefile
+mpk3-settings.spec
 ])
 AC_OUTPUT

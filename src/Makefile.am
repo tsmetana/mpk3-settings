@@ -4,7 +4,8 @@ AM_CPPFLAGS = \
 	
 AM_CFLAGS =\
 	 -Wall\
-	 -g
+	 -g\
+	 -fPIC
 
 bin_PROGRAMS = mpk3-settings
 
@@ -20,7 +21,8 @@ mpk3_settings_SOURCES = \
 	file.h\
 	file.c
 
-mpk3_settings_LDFLAGS = 
+mpk3_settings_LDFLAGS = \
+	-pie -Wl,--as-needed
 
 mpk3_settings_LDADD =  \
 	$(GTK_LIBS) \

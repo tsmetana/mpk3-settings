@@ -8,6 +8,7 @@ config.h
 config.h.in*
 config.status
 configure
+configure~
 depcomp
 install-sh
 missing
@@ -18,3 +19,7 @@ src/.deps/
 src/mpk3-settings
 stamp-h1
 *.list
+rpmbuild/
+*.spec
+*.rpm
+*.tar.bz2
