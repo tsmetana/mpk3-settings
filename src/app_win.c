@@ -675,6 +675,7 @@ GtkWidget *app_win_create(GtkApplication *app)
 
 	main_window = gtk_application_window_new(app);
 	gtk_window_set_title(GTK_WINDOW(main_window), "MPKmini MK3 Settings");
+	gtk_window_set_icon_name(GTK_WINDOW(main_window), APP_ID_DOMAIN);
 
 	main_vbox = gtk_box_new(GTK_ORIENTATION_VERTICAL, 0);
 	gtk_box_set_spacing(GTK_BOX(main_vbox), 5);

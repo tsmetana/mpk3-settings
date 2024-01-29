@@ -23,6 +23,7 @@ PKG_CHECK_MODULES([RTMIDI5], [rtmidi >= 5.0.0], [dnl
 )
 
 AC_SUBST([BUILD_DATE], [$(LC_ALL=C date +"%a %b %d %Y")])
+AC_DEFINE([APP_ID_DOMAIN], ["io.github.tsmetana.mpk3-settings"], [Application ID domain])
 
 AC_CONFIG_FILES([
 Makefile
