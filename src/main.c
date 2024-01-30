@@ -46,7 +46,7 @@ int main(int argc, char ** argv)
 		show_error();
 		return -1;
 	}
-	app = gtk_application_new("io.github.tsmetana.mpk3-settings", G_APPLICATION_DEFAULT_FLAGS);
+	app = gtk_application_new(APP_ID_DOMAIN, G_APPLICATION_DEFAULT_FLAGS);
 	g_signal_connect(app, "activate", G_CALLBACK(activate), NULL);
 	status = g_application_run(G_APPLICATION(app), argc, argv);
 	g_object_unref(app);
