@@ -6,7 +6,9 @@ Summary:	AKAI MPK Mini MK3 settings
 License:	GPLv3+
 Source0:	%{name}-%{version}.tar.bz2
 
+BuildRequires:	gcc autoconf automake
 BuildRequires:	gtk3-devel rtmidi-devel >= 4.0.0
+BuildRequires:	desktop-file-utils
 
 
 %description

@@ -3,6 +3,7 @@ autom4te.cache
 compile
 *Makefile.in
 *Makefile
+!.copr/Makefile
 config.log
 config.h
 config.h.in*
