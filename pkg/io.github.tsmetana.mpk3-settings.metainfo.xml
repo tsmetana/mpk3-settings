@@ -3,6 +3,9 @@
     <id>io.github.tsmetana.mpk3-settings</id>
     <launchable type="desktop-id">io.github.tsmetana.mpk3-settings.desktop</launchable>
     <name>MPK3 Settings</name>
+    <developer id="io.github.tsmetana">
+        <name translatable="no">Tomas Smetana</name>
+    </developer>
     <summary>AKAI MPK Mini MK3 settings</summary>
     <description>
         <p>
@@ -16,14 +19,17 @@
     <supports>
         <control>pointing</control>
         <control>keyboard</control>
-        <display_length compare="ge">large</display_length>
     </supports>
+    <recommends>
+        <display_length compare="ge">1024</display_length>
+    </recommends>
     <content_rating type="oars-1.1"/>
     <url type="homepage">https://github.com/tsmetana/mpk3-settings</url>
     <url type="bugtracker">https://github.com/tsmetana/mpk3-settings/issues</url>
     <screenshots>
         <screenshot type="default">
             <image>https://github.com/tsmetana/mpk3-settings/raw/v0.1.0/pkg/gui_screen_1.png</image>
+            <caption>Main window</caption>
         </screenshot>
     </screenshots>
     <releases>
